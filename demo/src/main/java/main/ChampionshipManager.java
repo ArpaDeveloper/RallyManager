@@ -40,15 +40,17 @@ public class ChampionshipManager {
         totalRaces++;
     }
 
-  //  public List<Driver> getDriverStandings(){
-
-  //  }
+    public List<Driver> getDriverStandings(){
+        List<Driver> sortedDrivers = new ArrayList<>(drivers);
+        sortedDrivers.sort((d1, d2) -> Integer.compare(d2.getPoints(), d1.getPoints()));
+        return sortedDrivers;
+    }
 
   //  public static Driver getLeadingDriver(){
 
  //   }
 
-   // public static int getTotalChampionshipPoints(){
+ //   public static int getTotalChampionshipPoints(){
 
    // }
 }

@@ -29,7 +29,7 @@ public class RallyRaceResult implements RaceResult {
     }
 
     public void recordResult(Driver driver, int position, int points){
-        results.put(driver, position);
+        results.put(driver, points);
         driver.addPoints(points);
     }
 
@@ -42,7 +42,7 @@ public class RallyRaceResult implements RaceResult {
         //Create a list from the map entries (key=Driver, value=Position)
         List<Map.Entry<Driver, Integer>> resultList = new ArrayList<>(results.entrySet());
 
-        //Sort the list by position (lowest to highest)
+        //Sort the list by position
         resultList.sort(Comparator.comparingInt(Map.Entry::getValue));
 
         //Extract the drivers from the sorted entries
