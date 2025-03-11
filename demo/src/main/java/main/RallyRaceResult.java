@@ -34,23 +34,23 @@ public class RallyRaceResult implements RaceResult {
     }
 
     public int getDriverPoints(Driver driver){
-        return driver.getPoints();
+        return results.getOrDefault(driver, 0);
     }
 
     //ChatGPT help
     public List<Driver> getResults(){
-        //Create a list from the map entries (key=Driver, value=Position)
-        List<Map.Entry<Driver, Integer>> resultList = new ArrayList<>(results.entrySet());
+       // Create a list from the map entries (key=Driver, value=Points)
+       List<Map.Entry<Driver, Integer>> resultList = new ArrayList<>(results.entrySet());
 
-        //Sort the list by position
-        resultList.sort(Comparator.comparingInt(Map.Entry::getValue));
+       // Sort the list by points (descending order)
+       resultList.sort((e1, e2) -> Integer.compare(e2.getValue(), e1.getValue()));
 
-        //Extract the drivers from the sorted entries
-        List<Driver> sortedDrivers = new ArrayList<>();
-        for (Map.Entry<Driver, Integer> entry : resultList) {
-            sortedDrivers.add(entry.getKey());
-        }
+       // Extract the drivers from the sorted entries
+       List<Driver> sortedDrivers = new ArrayList<>();
+       for (Map.Entry<Driver, Integer> entry : resultList) {
+           sortedDrivers.add(entry.getKey());
+       }
 
-        return sortedDrivers;
+       return sortedDrivers;
     }
 }

@@ -13,6 +13,7 @@ public class Driver {
         this.name = name;
         this.country = country;
         this.car = car;
+        this.points = 0;
     }
 
     //Getters

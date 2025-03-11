@@ -46,9 +46,12 @@ public class ChampionshipManager {
         return sortedDrivers;
     }
 
-  //  public static Driver getLeadingDriver(){
-
- //   }
+    //Help of !ChatGPT
+    public static Driver getLeadingDriver(){
+        ChampionshipManager championshipManager = ChampionshipManager.getInstance();
+        List<Driver> sortedDrivers = championshipManager.getDriverStandings();
+        return sortedDrivers.isEmpty() ? null : sortedDrivers.get(0);
+    }
 
  //   public static int getTotalChampionshipPoints(){
 

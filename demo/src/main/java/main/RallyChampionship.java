@@ -32,7 +32,6 @@ public class RallyChampionship
         Driver driver4 = new Driver("Takamoto Katsuta", "Japan", new GravelCar("Honda", "Civic", 150, 2.6));
         championshipManager.registerDriver(driver4);
 
-
         //3. Simulate at least two races with different surfaces
         RallyRaceResult gravelRace = new RallyRaceResult("Open Rally Finland", "Janakkala");
         //Luck + Performance -> Rally Position 
@@ -118,6 +117,15 @@ public class RallyChampionship
         }
         System.out.println("");
        
+        System.out.println("===== Championship Leader =====");
+        Driver leadingDriver = championshipManager.getLeadingDriver();
+        if (leadingDriver != null) {
+            System.out.println("Leading Driver: " + leadingDriver.getName() + " with " + leadingDriver.getPoints() + " points");
+        } else {
+            System.out.println("No drivers available.");
+        }
+        System.out.println("");
+
         System.out.println("===== Race Results =====");
         //Gravel race
         System.out.println("Race: "+gravelRace.getRaceName()+" ("+gravelRace.getLocation()+")");
@@ -126,7 +134,8 @@ public class RallyChampionship
         //Loop to print the race numbers !helped by ChatGPT
         for (int i = 0; i < sortedDrivers.size(); i++) {
             Driver driver = sortedDrivers.get(i);
-            System.out.println("Position " + (i + 1) + ": " +driver.getName() + " " +driver.getPoints());
+            int points = gravelRace.getDriverPoints(driver); 
+            System.out.println("Position " + (i + 1) + ": " + driver.getName() + " " + points + " points");
         }    
         System.out.println("");
 
@@ -137,7 +146,8 @@ public class RallyChampionship
         //Loop to print the race numbers !helped by ChatGPT
         for (int i = 0; i < sortedDrivers.size(); i++) {
             Driver driver = sortedDrivers.get(i);
-            System.out.println("Position " + (i + 1) + ": " +driver.getName() + " " +asphaltRace.getDriverPoints(driver));
+            int points = asphaltRace.getDriverPoints(driver); 
+            System.out.println("Position " + (i + 1) + ": " + driver.getName() + " " + points + " points");
         }      
         System.out.println("");
 
