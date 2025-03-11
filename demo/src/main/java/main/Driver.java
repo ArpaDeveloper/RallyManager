@@ -36,6 +36,6 @@ public class Driver {
 
     //Method to add points
     public void addPoints(int points){
-
+        this.points += points;
     }
 }

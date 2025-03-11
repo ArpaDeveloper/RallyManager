@@ -1,5 +1,6 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChampionshipManager {
@@ -14,10 +15,10 @@ public class ChampionshipManager {
 
     //Constructor must be private to prevent instantiation from outside of the class
     private ChampionshipManager() {
-        this.drivers = drivers;
-        this.races = races;
-        this.totalDrivers = totalDrivers;
-        this.totalRaces = totalRaces;
+        this.drivers = new ArrayList<>();
+        this.races = new ArrayList<>();
+        this.totalDrivers = 0;
+        this.totalRaces = 0;
     }
     
     //Getter
@@ -30,11 +31,13 @@ public class ChampionshipManager {
     }
 
     public void registerDriver(Driver driver){
-
+        drivers.add(driver);
+        totalDrivers++;
     }
 
     public void addRaceResult(RallyRaceResult result){
-
+        races.add(result);
+        totalRaces++;
     }
 
     public List<Driver> getDriverStandings(){

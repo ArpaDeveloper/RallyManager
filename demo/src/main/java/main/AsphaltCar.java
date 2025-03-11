@@ -17,6 +17,6 @@ public class AsphaltCar extends RallyCar{
     }
 
     public double calculatePerformance(){
-       
+       horsepower * downforce;
     }
 }

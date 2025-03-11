@@ -1,6 +1,6 @@
 package main;
 
-public class RallyRaceResult {
+public class RallyRaceResult implements RaceResult {
 
     //Variables
     private String raceName;

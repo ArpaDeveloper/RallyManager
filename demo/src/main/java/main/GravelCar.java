@@ -17,6 +17,11 @@ public class GravelCar extends RallyCar{
     }
 
     public double calculatePerformance(){
-        
+        if(horsepower =< 200){
+            return horsepower * suspensionTravel;
+        }
+        else{
+            return horsepower * suspensionTravel - 20.0;
+        }
     }
 }

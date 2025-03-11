@@ -26,7 +26,6 @@ public abstract class RallyCar {
     }
 
     //Method to calculate performance
-    public abstract double calculatePerformance(){
-
-    }
+    public abstract double calculatePerformance();
+    
 }

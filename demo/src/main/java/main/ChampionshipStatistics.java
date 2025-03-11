@@ -1,5 +1,7 @@
 package main;
 
+import java.util.List;
+
 public class ChampionshipStatistics {
 
     public static double calculateAveragePointsPerDriver(List<Driver> drivers){
@@ -11,6 +13,6 @@ public class ChampionshipStatistics {
     }
 
     public static int getTotalRacesHeld(){
-        
+        return ChampionshipManager.totalRaces; 
     }
 }
