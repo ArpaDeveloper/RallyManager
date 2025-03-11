@@ -15,13 +15,14 @@ public class GravelCar extends RallyCar{
     public double getSuspensionTravel(){
         return suspensionTravel;
     }
-
+   
+    @Override
     public double calculatePerformance(){
-        if(horsepower =< 200){
-            return horsepower * suspensionTravel;
+        if(super.getHorsepower() <= 200){
+            return super.getHorsepower() * suspensionTravel;
         }
         else{
-            return horsepower * suspensionTravel - 20.0;
+            return super.getHorsepower() * suspensionTravel - 20.0;
         }
     }
 }

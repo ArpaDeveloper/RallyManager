@@ -9,7 +9,7 @@ public class ChampionshipManager {
     private static ChampionshipManager instance;
     //Variables
     private List<Driver> drivers;
-    private List<RallyRaceResults> races;
+    private List<RallyRaceResult> races;
     private static int totalDrivers;
     private static int totalRaces;
 
@@ -40,15 +40,15 @@ public class ChampionshipManager {
         totalRaces++;
     }
 
-    public List<Driver> getDriverStandings(){
+  //  public List<Driver> getDriverStandings(){
 
-    }
+  //  }
 
-    public static Driver getLeadingDriver(){
+  //  public static Driver getLeadingDriver(){
 
-    }
+ //   }
 
-    public static int getTotalChampionshipPoints(){
+   // public static int getTotalChampionshipPoints(){
 
-    }
+   // }
 }

@@ -1,5 +1,11 @@
 package main;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class RallyRaceResult implements RaceResult {
 
     //Variables
@@ -11,6 +17,7 @@ public class RallyRaceResult implements RaceResult {
     public RallyRaceResult(String raceName, String location){
         this.raceName = raceName;
         this.location = location;
+        this.results = new HashMap<>();
     }
 
     //Getters
@@ -22,14 +29,28 @@ public class RallyRaceResult implements RaceResult {
     }
 
     public void recordResult(Driver driver, int position, int points){
-
+        results.put(driver, position);
+        driver.addPoints(points);
     }
 
     public int getDriverPoints(Driver driver){
-
+        return driver.getPoints();
     }
 
+    //ChatGPT help
     public List<Driver> getResults(){
-        
+        //Create a list from the map entries (key=Driver, value=Position)
+        List<Map.Entry<Driver, Integer>> resultList = new ArrayList<>(results.entrySet());
+
+        //Sort the list by position (lowest to highest)
+        resultList.sort(Comparator.comparingInt(Map.Entry::getValue));
+
+        //Extract the drivers from the sorted entries
+        List<Driver> sortedDrivers = new ArrayList<>();
+        for (Map.Entry<Driver, Integer> entry : resultList) {
+            sortedDrivers.add(entry.getKey());
+        }
+
+        return sortedDrivers;
     }
 }
