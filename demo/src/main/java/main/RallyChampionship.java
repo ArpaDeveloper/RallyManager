@@ -33,80 +33,25 @@ public class RallyChampionship
         championshipManager.registerDriver(driver4);
 
         //3. Simulate at least two races with different surfaces
-        RallyRaceResult gravelRace = new RallyRaceResult("Open Rally Finland", "Janakkala");
-        //Luck + Performance -> Rally Position 
         Random random = new Random();
-        double driver1_score_r1 = random.nextInt(100) + driver1.getCar().calculatePerformance();
-        double driver2_score_r1 = random.nextInt(100) + driver2.getCar().calculatePerformance();
-        double driver3_score_r1 = random.nextInt(100) + driver3.getCar().calculatePerformance();
-        double driver4_score_r1 = random.nextInt(100) + driver4.getCar().calculatePerformance();
-        
-        //Make a hashmap for the scores !ChatGPT help used here
-        Map<Driver, Double> driverScores = new HashMap<>();
-        driverScores.put(driver1, driver1_score_r1);
-        driverScores.put(driver2, driver2_score_r1);
-        driverScores.put(driver3, driver3_score_r1);
-        driverScores.put(driver4, driver4_score_r1);
-       
-        // Sort the list based on the scores (highest to lowest)
-        List<Map.Entry<Driver, Double>> sortedEntries = new ArrayList<>(driverScores.entrySet());
-        sortedEntries.sort((e1, e2) -> Double.compare(e2.getValue(), e1.getValue()));
 
-        //Loop through the list to get drivers position and then assign points
-        for (int i = 0; i < sortedEntries.size(); i++) {
-            Driver driver = sortedEntries.get(i).getKey();
-            int points = 0;
-            switch (i) {
-                case 0: points = 25; break; 
-                case 1: points = 18; break; 
-                case 2: points = 15; break; 
-                case 3: points = 12; break; 
-                default: points = 0; break; 
-            }
-
-            //Record the result for each driver !ChatGPT help stops here
-            gravelRace.recordResult(driver, i + 1, points);
-        }
-        //Add the race results
+        //Gravel Race
+        RallyRaceResult gravelRace = new RallyRaceResult("Open Rally Finland", "Janakkala");
+        simulateRace(List.of(driver1, driver2, driver3, driver4), gravelRace, random);
         championshipManager.addRaceResult(gravelRace);
-
+        
         //4. Demonstrate car switching between races
         driver1.setCar(new AsphaltCar("Toyota", "Corolla", 300, 1.5));
         driver2.setCar(new AsphaltCar("Nissan", "Skyline", 350, 1.3));
         driver3.setCar(new AsphaltCar("Ford", "Focus", 270, 1.9));
         driver4.setCar(new AsphaltCar("Honda", "Civic Type R", 380, 1.1));
-
-        RallyRaceResult asphaltRace = new RallyRaceResult("Street Race", "Kioto Highway");
-        //Luck + Performance -> Rally Position 
-        double driver1_score_r2 = random.nextInt(100) + driver1.getCar().calculatePerformance();
-        double driver2_score_r2 = random.nextInt(100) + driver2.getCar().calculatePerformance();
-        double driver3_score_r2 = random.nextInt(100) + driver3.getCar().calculatePerformance();
-        double driver4_score_r2 = random.nextInt(100) + driver4.getCar().calculatePerformance();
-        
-        //!ChatGPT help used here
-        driverScores.put(driver1, driver1_score_r2);
-        driverScores.put(driver2, driver2_score_r2);
-        driverScores.put(driver3, driver3_score_r2);
-        driverScores.put(driver4, driver4_score_r2);
        
-        sortedEntries = new ArrayList<>(driverScores.entrySet());
-        sortedEntries.sort((e1, e2) -> Double.compare(e2.getValue(), e1.getValue()));
-
-        for (int i = 0; i < sortedEntries.size(); i++) {
-            Driver driver = sortedEntries.get(i).getKey();
-            int points = 0;
-            switch (i) {
-                case 0: points = 25; break;
-                case 1: points = 18; break;
-                case 2: points = 15; break;
-                case 3: points = 12; break;
-                default: points = 0; break;
-            }
-            asphaltRace.recordResult(driver, i + 1, points);
-        }
-
+        //Asphalt Race
+        RallyRaceResult asphaltRace = new RallyRaceResult("Street Race", "Kioto Highway");
+        simulateRace(List.of(driver1, driver2, driver3, driver4), asphaltRace, random);
         championshipManager.addRaceResult(asphaltRace);
 
+     
         //5. Display championship standings, statistics, and race results !ChatGPT was used to help me make the loops to print
 
         System.out.println("===== Leaderboard =====");
@@ -119,14 +64,19 @@ public class RallyChampionship
        
         System.out.println("===== Championship Leader =====");
         Driver leadingDriver = championshipManager.getLeadingDriver();
-        if (leadingDriver != null) {
-            System.out.println("Leading Driver: " + leadingDriver.getName() + " with " + leadingDriver.getPoints() + " points");
-        } else {
-            System.out.println("No drivers available.");
-        }
+        System.out.println("Leading Driver: " + leadingDriver.getName() + " with " + leadingDriver.getPoints() + " points");
+        System.out.println("");
+
+        System.out.println("===== Championship Statistics =====");
+        System.out.println("Total Drivers: "+ championshipManager.getTotalDrivers());
+        System.out.println("Total Races: "+ ChampionshipStatistics.getTotalRacesHeld());
+        System.out.println("Average Points Per Driver: "+ChampionshipStatistics.calculateAveragePointsPerDriver(ChampionshipManager.getInstance().getDriverStandings()));
+        System.out.println("Most Successful Country: " +ChampionshipStatistics.findMostSuccessfulCountry(ChampionshipManager.getInstance().getDriverStandings()));
+        System.out.println("Total Championship Points: "+championshipManager.getTotalChampionshipPoints());
         System.out.println("");
 
         System.out.println("===== Race Results =====");
+
         //Gravel race
         System.out.println("Race: "+gravelRace.getRaceName()+" ("+gravelRace.getLocation()+")");
         List<Driver> sortedDrivers = gravelRace.getResults();
@@ -152,5 +102,35 @@ public class RallyChampionship
         System.out.println("");
 
         //6. Show performance calculations for different car types
+        System.out.println("===== Car Performance Ratings =====");
+        System.out.println("");
     }
+    //ChatGPT help!
+    private static void simulateRace(List<Driver> drivers, RallyRaceResult raceResult, Random random){
+
+        Map<Driver, Double> driverScores = new HashMap<>();
+
+        for(Driver driver : drivers){
+            double drivers_raceScore = random.nextInt(100) + driver.getCar().calculatePerformance();
+            driverScores.put(driver, drivers_raceScore);
+        }
+        List<Map.Entry<Driver, Double>> sortedEntries = new ArrayList<>(driverScores.entrySet());
+        sortedEntries.sort((e1, e2) -> Double.compare(e2.getValue(), e1.getValue()));
+
+        for (int i = 0; i < sortedEntries.size(); i++) {
+            Driver driver = sortedEntries.get(i).getKey();
+            int points = 0;
+            switch (i) {
+                case 0: points = 25; break;
+                case 1: points = 18; break;
+                case 2: points = 15; break;
+                case 3: points = 12; break;
+                default: points = 0; break;
+            }
+            raceResult.recordResult(driver, i + 1, points);
+        }
+
+    }
+
+    //Print raceResultsmethod
 }

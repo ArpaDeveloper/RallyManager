@@ -53,7 +53,21 @@ public class ChampionshipManager {
         return sortedDrivers.isEmpty() ? null : sortedDrivers.get(0);
     }
 
- //   public static int getTotalChampionshipPoints(){
+    public static int getTotalChampionshipPoints(){
+        int totalPoints = 0;
+        ChampionshipManager championshipManager = ChampionshipManager.getInstance();
+        for(Driver driver : championshipManager.drivers){
+            totalPoints += driver.getPoints();
+        }
+        return totalPoints;
+    }
 
-   // }
+    public static int getTotalRaces() {
+        return totalRaces;
+    }
+
+    public static int getTotalDrivers() {
+        return totalDrivers;
+    }
 }
+
