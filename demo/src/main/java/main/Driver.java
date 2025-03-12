@@ -1,5 +1,16 @@
 package main;
 
+/**
+*This class defines Drivers and sets their cars
+*
+*@author Aarni Viljanen
+*@version 1.0
+*
+*@param name is the name of the driver
+*@param country is the country where the driver is from
+*@param points are the points of the driver
+*@param car is the car of the driver
+*/
 public class Driver {
 
     //Variables

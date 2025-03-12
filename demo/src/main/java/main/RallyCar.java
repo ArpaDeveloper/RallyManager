@@ -1,5 +1,15 @@
 package main;
 
+/**
+*This is a super class RallyCar that different types of cars use
+*
+*@author Aarni Viljanen
+*@version 1.0
+*
+*@param make is the manufacturer of the car
+*@param model is the model of the car
+*@param horsepower is the horsepower of the car
+*/
 public abstract class RallyCar {
 
     //Variables
